@@ -1,0 +1,1 @@
+Das ist eine Ablage für meine gelösten LeetCode Aufgaben.
