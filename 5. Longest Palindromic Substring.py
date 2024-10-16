@@ -1,25 +1,22 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if len(s) == 1: return s
-        palindromes = []
+        def expandAroundCenter(left: int, right: int) -> str:
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return s[left + 1:right]
 
-        for i in range(len(s)-2):
-            subString = ""
-            if s[i] == s[i+2]:
-                indexL = i
-                indexR = i+2
-                subString = s[i+1]
-                while indexL >=0 and indexR <= len(s) and s[indexL] == s[indexR]:
-                    subString = s[indexL] + subString + s[indexR]
-                    palindromes.append(subString)
-                    indexL -= 1
-                    indexR += 1
+        if len(s) <= 1:
+            return s
         
-        maxLength = 0
-        maxLengthIndex = -1
+        longest_palindrome = ""
 
-        for index, pal in enumerate(palindromes):
-            if len(pal) > maxLength: 
-                maxLength = len(pal)
-                maxLengthIndex = index
-        return palindromes[maxLengthIndex]              
+        for i in range(len(s)):
+            #(single center character)
+            odd_palindrome = expandAroundCenter(i, i)
+            #(center between two characters)
+            even_palindrome = expandAroundCenter(i, i + 1)
+            
+            longest_palindrome = max(longest_palindrome, odd_palindrome, even_palindrome, key=len)
+        
+        return longest_palindrome
