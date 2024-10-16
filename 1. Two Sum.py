@@ -4,4 +4,3 @@ class Solution:
             for j in range (0, len(nums)):
                 if i == j: continue
                 if nums[i] + nums[j] == target: return [i, j]
-        
