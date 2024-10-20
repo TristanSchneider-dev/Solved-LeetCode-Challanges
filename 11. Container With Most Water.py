@@ -1,12 +1,15 @@
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        areaValues= []
-        distance = 0
-        for index, i in enumerate(height):
-            distance = 0
-            for j in height[index+1:]:
-                distance += 1
-                areaValues.append(min(i, j) * distance)
+        biggestArea = 0
 
-        return max(areaValues)
+        leftEnd = 0
+        rightEnd = len(height)-1
+        while leftEnd < rightEnd:
+            distance = rightEnd - leftEnd
+            area = min(height[leftEnd], height[rightEnd]) * distance
+            if area > biggestArea: biggestArea = area
+            
+            if height[leftEnd] < height[rightEnd]: leftEnd += 1
+            else:rightEnd -= 1
 
+        return(biggestArea)
