@@ -9,31 +9,28 @@
  *     }
  * }
  */
+
 public class Solution {
     public ListNode RemoveNthFromEnd(ListNode head, int n) {
-        
-        //Count ListNodes
-        ListNode current = head;
-        int counter = 0;
-        while(current != null){
-            current = current.next;
-            counter += 1;
+        if (head == null || n <= 0) return head;
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode first = dummy;
+        ListNode second = dummy;
+
+        // Bewege den ersten Zeiger n Schritte vorwärts
+        for (int i = 0; i <= n; i++) {
+            first = first.next;
         }
 
-        //if (n == counter): 
-
-        ListNode beforeDelete = null;
-        current = head; //back to start
-        counter -= n;
-        while(counter > 0){
-            if (counter == 1) beforeDelete = current;
-            current = current.next;
-            counter -= 1;
+        while (first != null) {
+            first = first.next;
+            second = second.next;
         }
-        
-        Console.WriteLine(beforeDelete.val);
-        Console.WriteLine(current.val);
 
-        return head;
+        second.next = second.next.next; // Löschung des n-ten Knotens vom Ende
+
+        return dummy.next;
     }
 }
