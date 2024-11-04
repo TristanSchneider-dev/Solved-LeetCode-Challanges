@@ -15,18 +15,22 @@ public class Solution {
         PriorityQueue<ListNode, int> heap = new PriorityQueue<ListNode, int>();
 
         foreach(ListNode startNode in lists){
-            if (startNode != null) heap.Enqueue(startNode, startNode.val);
-            Console.WriteLine(startNode.val);
+            if (startNode == null) continue;
+            heap.Enqueue(startNode, startNode.val);
         }
 
         ListNode head = new ListNode(0);
         ListNode tail = head;
 
-        /*
         while(heap.Count > 0){
-            tail = heap.Dequeue();
+            ListNode node = heap.Dequeue();
+            tail.next = node;
+            tail = tail.next;
+
+            if (node.next != null) heap.Enqueue(node.next, node.next.val);
         }
-        */
-        return null;
+
+
+        return head.next;
     }
 }
